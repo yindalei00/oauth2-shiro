@@ -19,6 +19,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  * 2015/9/29
@@ -66,6 +67,9 @@ public class OAuth2Filter extends AuthenticatingFilter implements InitializingBe
             //bearer ab1ade69-d122-4844-ab23-7b109ad977f0
             return authorization.substring(6).trim();
         }
+
+        //FIXME  access token 并不是从这里取得,dueros 和 天猫精灵  都是放在  body
+        //智能家居协议指令（directives）由Header和Payload两部分组成。 所以作废了
         return httpRequest.getParameter(OAuth.OAUTH_ACCESS_TOKEN);
     }
 

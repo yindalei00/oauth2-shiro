@@ -30,7 +30,7 @@
         <jdbc.pass>andaily</jdbc.pass>
         <!--if do not use execute sql, change the value to true-->
         <!--<jdbc.execute.skip>false</jdbc.execute.skip>-->
-        <test.skip>false</test.skip>
+        <test.skip>true</test.skip>
     </properties>
 
 

@@ -41,10 +41,12 @@ public class CodeAuthorizeHandler extends AbstractAuthorizeHandler {
     protected void handleResponse() throws OAuthSystemException, IOException {
         final ClientDetails clientDetails = clientDetails();
         final String authCode = oauthService.retrieveAuthCode(clientDetails);
+        //天猫精灵 需要从这里取出来
+        String redirectURI = oauthRequest.getRedirectURI();
 
         final OAuthResponse oAuthResponse = OAuthASResponse
                 .authorizationResponse(oauthRequest.request(), HttpServletResponse.SC_OK)
-                .location(clientDetails.getRedirectUri())
+                .location(redirectURI)
                 .setCode(authCode)
                 .buildQueryMessage();
         LOG.debug(" 'code' response: {}", oAuthResponse);

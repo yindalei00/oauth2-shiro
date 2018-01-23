@@ -31,17 +31,17 @@ public class CodeClientDetailsValidator extends AbstractClientDetailsValidator {
     * */
     @Override
     public OAuthResponse validateSelf(ClientDetails clientDetails) throws OAuthSystemException {
-        //validate redirect_uri
+        //validate redirect_uri         天猫校验不一样 https://open.bot.tmall.com/oauth/callback?skillId=3805&token=NzM4MDgwMTgzQUZFSElORkRWUQ==
         final String redirectURI = oauthRequest.getRedirectURI();
-        if (redirectURI == null || !redirectURI.equals(clientDetails.getRedirectUri())) {
+        if (redirectURI == null || !redirectURI.startsWith(clientDetails.getRedirectUri())) {
             LOG.debug("Invalid redirect_uri '{}' by response_type = 'code', client_id = '{}'", redirectURI, clientDetails.getClientId());
             return invalidRedirectUriResponse();
         }
 
-        //validate scope
+        //validate scope        百度不传scope 注释了
         final Set<String> scopes = oauthRequest.getScopes();
         if (scopes.isEmpty() || excludeScopes(scopes, clientDetails)) {
-            return invalidScopeResponse();
+//            return invalidScopeResponse();
         }
 
         //validate state
